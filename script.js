@@ -6,6 +6,7 @@ const notesList = document.querySelector("#notes-list");
 const errorMessage = document.querySelector("#error-message");
 const noteCount = document.querySelector("#note-count");
 const searchInput = document.querySelector("#search-input");
+const clearAllBtn = document.querySelector("#clear-all-btn");
 // ---------- Data ----------
 // Each note: { id, text, category, createdAt }
 // Save the notes array in the browser as text
@@ -138,5 +139,17 @@ notesList.addEventListener("click", handleListClick);
 
 //------------ Search notes ----------
 searchInput.addEventListener("input", render);
+
+//----------- Clear all ----------
+function handleClearAll() {
+  if (confirm("Delete all notes?")) {
+    notes = [];
+    saveNotes();
+    render();
+  }
+}
+
+clearAllBtn.addEventListener("click", handleClearAll);
+
 // ---------- First draw ----------
 render();
