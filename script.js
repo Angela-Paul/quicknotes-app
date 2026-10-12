@@ -5,10 +5,28 @@ const noteCategory = document.querySelector("#note-category");
 const notesList = document.querySelector("#notes-list");
 const errorMessage = document.querySelector("#error-message");
 const noteCount = document.querySelector("#note-count");
+const searchInput = document.querySelector("#search-input");
 // ---------- Data ----------
 // Each note: { id, text, category, createdAt }
-let notes = [];
+// Save the notes array in the browser as text
+function saveNotes() {
+  localStorage.setItem("notes", JSON.stringify(notes));
+}
 
+// Read the saved text back into an array
+function loadNotes() {
+  const saved = localStorage.getItem("notes");
+  if (saved === null) {
+    return [];
+  }
+  try {
+    return JSON.parse(saved);
+  } catch (error) {
+    return [];
+  }
+}
+
+let notes = loadNotes();
 // ---------- Count message ----------
 function updateCount() {
   if (notes.length === 0) {
@@ -24,7 +42,19 @@ function updateCount() {
 function render() {
   notesList.textContent = ""; // empties the list
 
-  for (const note of notes) {
+  // Keep only the notes that match the search box (upper/lower case ignored)
+  const searchWord = searchInput.value.trim().toLowerCase();
+  const visibleNotes = notes.filter(function (note) {
+    return note.text.toLowerCase().includes(searchWord);
+  });
+
+  if (visibleNotes.length === 0 && searchWord !== "") {
+    const message = document.createElement("li");
+    message.textContent = "No notes match your search.";
+    notesList.append(message);
+  }
+
+  for (const note of visibleNotes) {
     const card = document.createElement("li");
     card.classList.add("note-card", "category-" + note.category);
 
@@ -82,6 +112,7 @@ function handleSubmit(event) {
   };
 
   notes.push(newNote);
+  saveNotes();
   noteInput.value = "";
   noteInput.focus();
   render();
@@ -99,9 +130,13 @@ function handleListClick(event) {
   notes = notes.filter(function (note) {
     return note.id !== idToDelete;
   });
+  saveNotes();
   render();
 }
 
 notesList.addEventListener("click", handleListClick);
+
+//------------ Search notes ----------
+searchInput.addEventListener("input", render);
 // ---------- First draw ----------
 render();
