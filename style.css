@@ -1,0 +1,174 @@
+/* Reset: padding and border count inside an element's width */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f2f4f7;
+  color: #222222;
+}
+
+header {
+  background-color: #2a4d69;
+  color: #ffffff;
+  text-align: center;
+  padding: 24px 16px;
+}
+
+header h1 {
+  margin: 0 0 8px;
+}
+
+header p {
+  margin: 0;
+}
+
+/* Centred main column, max 700px */
+main {
+  max-width: 700px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+/* White section cards */
+section {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+  margin-top: 0;
+}
+
+footer {
+  text-align: center;
+  padding: 16px;
+  color: #555555;
+}
+
+/* Form laid out with Flexbox */
+#note-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#note-form label {
+  flex: 0 0 100%;
+  font-weight: bold;
+}
+
+#note-form input {
+  flex: 1;
+  min-width: 0;
+}
+
+input,
+select,
+button {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #bbbbbb;
+  border-radius: 6px;
+}
+
+button {
+  background-color: #2a4d69;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/* Visible hover on buttons */
+button:hover {
+  background-color: #1b3347;
+}
+
+/* Error message in red */
+#error-message {
+  color: red;
+  min-height: 1.2em;
+  margin: 10px 0 0;
+}
+
+#search-input {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#notes-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Each note is a card */
+.note-card {
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  border: 1px solid #dddddd;
+  border-left-width: 6px;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+.note-text {
+  margin: 0 0 6px;
+}
+
+.note-category {
+  font-weight: bold;
+  text-transform: capitalize;
+  margin-right: 8px;
+}
+
+.note-date {
+  color: #666666;
+  font-size: 0.85rem;
+}
+
+.delete-btn {
+  display: block;
+  margin-top: 8px;
+  padding: 6px 12px;
+  background-color: #b00020;
+}
+
+.delete-btn:hover {
+  background-color: #7f0016;
+}
+
+/* One left-border colour per category */
+.category-personal {
+  border-left-color: teal;
+}
+
+.category-work {
+  border-left-color: darkred;
+}
+
+.category-study {
+  border-left-color: royalblue;
+}
+
+/* Small screens: stack the form controls */
+@media (max-width: 600px) {
+  #note-form {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  #note-form label {
+    flex: none;
+  }
+
+  #note-form input {
+    flex: none;
+  }
+}
